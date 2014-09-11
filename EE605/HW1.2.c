@@ -4,10 +4,21 @@
 
 int main()
 {
+
+	FILE *f = fopen("hw1.2_results.txt","w");
+	if(f==NULL)
+	{
+		printf("Error opening file!\n");
+		return(1);
+	}
+
+
 	srand(time(NULL));
-	char mystring[100];
 	int n = 10, r, i, sixes=0;
-	while(1)
+
+	fprintf(f, "Die_Throws,Sixes\n");
+
+	while(n <= 100000000)
 	{
 		sixes =0;
 		for(i=0;i<n;i++)
@@ -19,12 +30,13 @@ int main()
 				sixes++;
 			}
 		}
-		printf("%d Die Throws\n", n);
-		printf("Sixes: %f (%d)\n", ((double)sixes/n),sixes);
+		fprintf(f, "%d,%d\n",n,sixes);
 
-		fgets (mystring , 100 , stdin);
 
 		n = n * 10;
 	}
+
+	fclose(f);
+
 	return 0;
 }

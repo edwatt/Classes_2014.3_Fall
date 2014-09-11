@@ -4,10 +4,20 @@
 
 int main()
 {
+	
+	FILE *f = fopen("hw1.1_results.txt", "w");
+    if (f == NULL)
+    {
+        printf("Error opening file!\n");
+        return(1);
+    }
+
 	srand(time(NULL));
-	char mystring[100];
 	int n = 10, r, i, heads=0, tails=0;
-	while(1)
+	
+	fprintf(f,"Tosses,Heads,Tails\n");
+
+	while(n <= 100000000)
 	{
 		heads =0;
 		tails = 0;
@@ -28,13 +38,17 @@ int main()
 				printf("Fatal error\n");
 			}
 		}
-		printf("%d Coin Tosses\n", n);
-		printf("Heads: %f (%d)\n", ((double)heads/n),heads);
-		printf("Tails: %f (%d)\n", ((double)tails/n),tails);
+		//printf("%d Coin Tosses\n", n);
+		//printf("Heads: %f (%d)\n", ((double)heads/n),heads);
+		//printf("Tails: %f (%d)\n", ((double)tails/n),tails);
 
-		fgets (mystring , 100 , stdin);
+
+		fprintf(f,"%d,%d,%d\n", n,heads,tails);
 
 		n = n * 10;
 	}
+
+	fclose(f);
+
 	return 0;
 }

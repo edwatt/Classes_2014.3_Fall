@@ -5,13 +5,21 @@
 int main()
 {
 	srand(time(NULL));
-	char mystring[100];
 	int n = 10, r, i, picks=0, pick;
 
 	printf("Input a number for your roullette pick: ");
 	scanf("%d", &pick);
 
-	while(1)
+	FILE *f = fopen("hw1.3_results.txt","w");
+	if(f==NULL)
+	{
+		printf("Error opening file!\n");
+		return(1);
+	}
+
+	fprintf(f,"Spins,Successes\n");
+
+	while(n <= 100000000)
 	{
 		picks =0;
 		for(i=0;i<n;i++)
@@ -23,12 +31,13 @@ int main()
 				picks++;
 			}
 		}
-		printf("%d Spins\n", n);
-		printf("%d's: %f (%d)\n", pick,((double)picks/n),picks);
-
-		fgets (mystring , 100 , stdin);
+		
+		fprintf(f, "%d,%d\n", n,picks);
 
 		n = n * 10;
 	}
+
+	fclose(f);	
+
 	return 0;
 }
